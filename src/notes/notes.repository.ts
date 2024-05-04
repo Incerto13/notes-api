@@ -21,10 +21,10 @@ export class NotesRepository extends Repository<Note> {
       }
   
       try {
-        const tasks = await query.getMany();
-        return tasks;
+        const notes = await query.getMany();
+        return notes;
       } catch(error) {
-        this.logger.error(`Failed to get tasks. Filters: ${JSON.stringify(filterDto)}`, error.stack)
+        this.logger.error(`Failed to get notes. Filters: ${JSON.stringify(filterDto)}`, error.stack)
         throw new InternalServerErrorException() // ensures error will bubble up to surface
       }
     }

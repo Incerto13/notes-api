@@ -23,38 +23,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
             database: configService.get('DB_DATABASE'),
         })
       })
-    // TypeOrmModule.forRoot({
-    //   type: 'postgres',
-    //   host: 'localhost',
-    //   port: 5432,
-    //   username: 'postgres',
-    //   password: 'postgres',
-    //   database: 'test-int',
-    //   autoLoadEntities: true,
-    //   entities: [process.cwd() + '/**/*.entity{.ts}'],
-    //   synchronize: true,
-    // }),
   ],
 })
 export class TestModule {}
-
-// @Module({
-//     imports: [
-//       ConfigModule.forRoot({
-//         envFilePath: '.int.env',
-//         isGlobal: true,
-//       }),
-//       TypeOrmModule.forRoot({
-//         type: 'postgres',
-//         host: 'localhost',
-//         port: 5432,
-//         username: 'postgres',
-//         password: 'postgres',
-//         database: 'test-int',
-//         autoLoadEntities: true,
-//         entities: [process.cwd() + '/**/*.entity{.ts}'],
-//         synchronize: true,
-//       }),
-//     ],
-//   })
-//   export class TestModule {}
