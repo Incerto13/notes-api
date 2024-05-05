@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { configValidationSchema } from './config.schema';
+import { ConfigValidationSchema } from './config.schema';
 import { NotesModule } from './notes/notes.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: [`.env.${process.env.ENV}`],
-      validationSchema: configValidationSchema,
+      validationSchema: ConfigValidationSchema,
     }),
     NotesModule,
     TypeOrmModule.forRootAsync({
