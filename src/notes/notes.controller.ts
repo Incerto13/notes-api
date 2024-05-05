@@ -36,7 +36,7 @@ import {
   
     @Post()
     createNote(@Body() createNoteDto: CreateNoteDto): Promise<Note> {
-      // in real app would not want to santiize any potential PII from logs
+      // in real app would want to santiize any potential PII from logs
       this.logger.verbose(`Creating a new note. Data: ${JSON.stringify(createNoteDto)}`)
       return this.notesService.createNote(createNoteDto);
     }

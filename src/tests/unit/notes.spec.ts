@@ -37,7 +37,7 @@ describe('Notes Unit', () => {
         })
     })
 
-    describe('getNotsById', () => {
+    describe('getNoteById', () => {
         it('calls NotesRepository.findOne and returns the result', async () => {
             const mockNote = {
                 id: 'someId',
@@ -54,7 +54,6 @@ describe('Notes Unit', () => {
             expect(notesService.getNoteById('someId')).rejects.toThrow(
                 NotFoundException
             )
-
         })
     })
 

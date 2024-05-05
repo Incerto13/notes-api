@@ -1,4 +1,3 @@
-import { IsNotEmpty } from 'class-validator';
 import { MinLength, MaxLength } from 'class-validator';
 import { Column } from 'typeorm'
 import { MIN_NOTE_LENGTH, MAX_NOTE_LENGTH } from '../../constants'
