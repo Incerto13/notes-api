@@ -1,6 +1,6 @@
 ## Solace Notes Api
 
-Tech stack: Nest.js, Typescript, TypeORM, Postgres 
+Tech stack: Nest.js, Typescript, TypeORM, Postgres, Supertest 
 
 ## Installation
 
@@ -26,12 +26,11 @@ $ npm run start:dev
 
 - The api will be running on http://localhost:3000
 - pgAdmin running in docker can be accessed on http://localhost:8888 
-- pgAdmin username: `postgres@solace.com` and password: `postgres` 
+  - pgAdmin in docker: username: `postgres@solace.com` and password: `postgres` 
+  - to view the database add a server with a hostname/address (under the connection tab) of `localhost` and same credentials as above
+  - alternatively if you already have pgAdmin running on your local machine can connect via the same `localhost` hostname/address
 
 ## Test
-
-
-
 ```bash
 # unit tests
 $ yarn run test:unit
