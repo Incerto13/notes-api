@@ -27,7 +27,7 @@ $ yarn run start:dev
 - The api will be running on http://localhost:3000
 - pgAdmin running in docker can be accessed on http://localhost:8888 
   - pgAdmin in docker: username: `postgres@solace.com` and password: `postgres` 
-  - to view the database add a server with a hostname/address (under the connection tab) of `localhost` and same credentials as above
+  - to view the database add a server with a hostname/address (under the connection tab) of `localhost` with same credentials `.env.example` file
   - alternatively if you already have pgAdmin running on your local machine can connect via the same `localhost` hostname/address
 
 ## Test
