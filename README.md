@@ -21,7 +21,7 @@ $ brew services stop postgresql@14
 $ make up-db
 
 # development
-$ npm run start:dev
+$ yarn run start:dev
 ```
 
 - The api will be running on http://localhost:3000
@@ -42,10 +42,10 @@ $ yarn run test:int
 $ make down-test-db # before going back to development must remove test-db and volumes
 
 # all tests (note: test-db must be running)
-$ npm run test:all
+$ yarn run test:all
 
 # test coverage (note: test-db must be running)
-$ npm run test:cov
+$ yarn run test:cov
 ```
 
 ## License
