@@ -44,8 +44,6 @@ export class NotesLabelsService {
   async deleteNoteLabel(deleteNoteLabelDto: DeleteNoteLabelDto): Promise<void> {
     const result = await this.notesLabelsRepository.delete(deleteNoteLabelDto);
 
-    console.log('result: ', result)
-
     if (result.affected === 0) {
       throw new NotFoundException(`NoteLabel with noteId: "${deleteNoteLabelDto.noteId}" and labelId: "${deleteNoteLabelDto.labelId}" not found`);
     }
