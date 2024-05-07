@@ -2,8 +2,13 @@ import { NotFoundException } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { LabelsRepository } from '../../labels/labels.repository';
 import { LabelsService } from '../../labels/labels.service';
+import { NotesRepository } from '../../notes/notes.repository';
+import { NotesService } from '../../notes/notes.service';
+import { NotesLabelsRepository } from '../../notes-labels/notes-labels.repository'
+import { NotesLabelsService } from '../../notes-labels/notes-labels.service';
+import { mockNotesRepository } from './notes.spec';
 
-const mockLabelsRepository = () => ({
+export const mockLabelsRepository = () => ({
     getLabels: jest.fn(),
     findOne: jest.fn(),
     createLabel: jest.fn(),
@@ -11,21 +16,34 @@ const mockLabelsRepository = () => ({
     save: jest.fn(),
 })
 
+const mockNotesLabelsRepository = () => ({
+    getNotesLabels: jest.fn(),
+})
+
 describe('Labels Unit', () => {
     let labelsService: LabelsService;
     let labelsRepository;
+
+    let notesLabelsService: NotesLabelsService
+    let notesLabelsRepository;
 
 
     beforeEach(async () => {
         const module = await Test.createTestingModule({
             providers: [
                 LabelsService,
-                { provide: LabelsRepository, useFactory: mockLabelsRepository }
+                { provide: LabelsRepository, useFactory: mockLabelsRepository },
+                NotesService,
+                { provide: NotesRepository, useFactory: mockNotesRepository },
+                NotesLabelsService,
+                { provide: NotesLabelsRepository, useFactory: mockNotesLabelsRepository },
             ],
         }).compile();
 
         labelsService = module.get(LabelsService);
         labelsRepository = module.get(LabelsRepository);
+        notesLabelsService = module.get(NotesLabelsService)
+        notesLabelsRepository = module.get(NotesLabelsRepository)
     });
 
     describe('getLabels', () => {

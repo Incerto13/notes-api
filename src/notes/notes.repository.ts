@@ -4,6 +4,7 @@ import { GetNotesFilterDto } from './dto/get-notes-filter.dto';
 import { Note } from './note.entity';
 import { InternalServerErrorException, Logger } from '@nestjs/common';
 
+
 @EntityRepository(Note)
 export class NotesRepository extends Repository<Note> {
     private logger = new Logger('NotesController');
@@ -11,7 +12,7 @@ export class NotesRepository extends Repository<Note> {
     async getNotes(filterDto: GetNotesFilterDto): Promise<Note[]> {
       const { search } = filterDto;
   
-      const query = this.createQueryBuilder('note');
+      const query = this.createQueryBuilder('note').leftJoinAndSelect('note.labels', 'labels');
   
       if (search) {
         query.andWhere(
@@ -28,15 +29,22 @@ export class NotesRepository extends Repository<Note> {
         throw new InternalServerErrorException() // ensures error will bubble up to surface
       }
     }
+
+    async getNoteById(id: string): Promise<Note> {
+      const query = this.createQueryBuilder('note').where({ id }).leftJoinAndSelect('note.labels', 'labels')
+
+      const note = await query.getOne()
+      return note;
+    }
   
     async createNote(createNoteDto: CreateNoteDto): Promise<Note> {
       const { value } = createNoteDto;
-  
+
       const note = this.create({
         value,
       });
-  
+
       await this.save(note);
-      return note;
+      return note
     }
 }

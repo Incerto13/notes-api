@@ -2,30 +2,51 @@ import { NotFoundException } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { NotesRepository } from '../../notes/notes.repository';
 import { NotesService } from '../../notes/notes.service';
+import { LabelsRepository } from '../../labels/labels.repository'
+import { LabelsService } from '../../labels/labels.service';
+import { NotesLabelsRepository } from '../../notes-labels/notes-labels.repository'
+import { NotesLabelsService } from '../../notes-labels/notes-labels.service';
+import { mockLabelsRepository } from './labels.spec'
 
-const mockNotesRepository = () => ({
+export const mockNotesRepository = () => ({
     getNotes: jest.fn(),
     findOne: jest.fn(),
+    getNoteById: jest.fn(),
     createNote: jest.fn(),
     delete: jest.fn(),
     save: jest.fn(),
 })
 
+const mockNotesLabelsRepository = () => ({
+    getNotesLabels: jest.fn(),
+})
+
+
 describe('Notes Unit', () => {
     let notesService: NotesService;
     let notesRepository;
+
+    let notesLabelsService: NotesLabelsService
+    let notesLabelsRepository;
 
 
     beforeEach(async () => {
         const module = await Test.createTestingModule({
             providers: [
                 NotesService,
-                { provide: NotesRepository, useFactory: mockNotesRepository }
+                { provide: NotesRepository, useFactory: mockNotesRepository },
+                LabelsService,
+                { provide: LabelsRepository, useFactory: mockLabelsRepository },
+                NotesLabelsService,
+                { provide: NotesLabelsRepository, useFactory: mockNotesLabelsRepository },
             ],
         }).compile();
 
+
         notesService = module.get(NotesService);
         notesRepository = module.get(NotesRepository);
+        notesLabelsService = module.get(NotesLabelsService)
+        notesLabelsRepository = module.get(NotesLabelsRepository)
     });
 
     describe('getNotes', () => {
@@ -44,7 +65,7 @@ describe('Notes Unit', () => {
                 value: 'note contents...'
             };
 
-            notesRepository.findOne.mockResolvedValue(mockNote)
+            notesRepository.getNoteById.mockResolvedValue(mockNote)
             const result = await notesService.getNoteById('someId')
             expect(result).toEqual(mockNote);
         });
@@ -60,8 +81,9 @@ describe('Notes Unit', () => {
     describe('createNote', () => {
         it('calls NotesRepository.createNote and returns the result', async () => {
             notesRepository.createNote.mockResolvedValue('newNote')
+            notesRepository.getNoteById.mockResolvedValue('newNote')
             // call notesService.getNotes which should then call the repository's createNote
-            const result = await notesService.createNote({ value: 'new note'});
+            const result = await notesService.createNote({ value: 'new note', labelIds: []});
             expect(result).toEqual('newNote')
         })
     })
@@ -96,6 +118,7 @@ describe('Notes Unit', () => {
             };
 
             notesRepository.findOne.mockResolvedValue(mockOrigNote)
+            notesRepository.getNoteById.mockResolvedValue(mockOrigNote)
             const result = await notesService.updateNote('someId', 'updated contents...')
             expect(result).toEqual({ id: 'someId', value: 'updated contents...'});
         });

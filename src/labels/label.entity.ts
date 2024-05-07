@@ -1,6 +1,7 @@
 import { MinLength, MaxLength } from 'class-validator';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { MIN_LABEL_LENGTH, MAX_LABEL_LENGTH } from '../constants'
+import { NoteLabel } from '../notes-labels/note-label.entity';
 
 
 @Entity()
@@ -16,4 +17,9 @@ export class Label {
         message: `Label is too long, max is (${MAX_LABEL_LENGTH} chars)`,
     })
     name: string;
+
+    @OneToMany(() => NoteLabel, (noteLabel) => noteLabel.label, {
+        cascade: true,
+    })
+    notes: NoteLabel[]
 }

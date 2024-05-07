@@ -4,6 +4,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ConfigValidationSchema } from './config.schema';
 import { NotesModule } from './notes/notes.module';
 import { LabelsModule } from './labels/labels.module';
+import { NotesLabelsModule } from './notes-labels/notes-labels.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { LabelsModule } from './labels/labels.module';
     }),
     NotesModule,
     LabelsModule,
+    NotesLabelsModule,
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

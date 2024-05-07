@@ -51,8 +51,8 @@ import {
       @Param('id') id: string,
       @Body() updateNoteDto: UpdateNoteDto,
     ): Promise<Note> {
-        const { value } = updateNoteDto;
-      return this.notesService.updateNote(id, value);
+        const { value, labelIds } = updateNoteDto;
+      return this.notesService.updateNote(id, value, labelIds);
     }
   }
   

@@ -11,4 +11,6 @@ export class CreateNoteDto {
       message: `Note is too long, max is (${MAX_NOTE_LENGTH} chars)`,
   })
   value: string;
+
+  labelIds: string[]
 }

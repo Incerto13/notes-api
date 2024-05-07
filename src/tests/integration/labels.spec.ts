@@ -6,7 +6,7 @@ import { createTestApp } from '..//utils/create-test-app.util';
 import { LabelsModule } from '../../labels/labels.module';
 import { Label } from '../../labels/label.entity'
 import { makeRequest } from '../utils/make-request';
-import { CreateLabelDto } from 'src/labels/dto/create-label.dto';
+import { CreateLabelDto } from '../../labels/dto/create-label.dto';
 
 describe('Labels Integration', () => {
   let app: NestExpressApplication;
@@ -32,9 +32,9 @@ describe('Labels Integration', () => {
   describe('GET /labels', () => {
     describe('200', () => {
         it('should create dog and return id', async () => {
-            await connection
-            .getRepository(Label)
-            .save([{ name: 'label - 1' }, { name: 'label - 2' }, { name: 'label - 3' }]);
+            await connection.getRepository(Label).save({ name: 'label - 1' }) 
+            await connection.getRepository(Label).save({ name: 'label - 2' })
+            await connection.getRepository(Label).save({ name: 'label - 3' });
 
             const response = await makeRequest(app).get('/labels');
 

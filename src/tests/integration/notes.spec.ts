@@ -6,7 +6,7 @@ import { createTestApp } from '..//utils/create-test-app.util';
 import { NotesModule } from '../../notes/notes.module';
 import { Note } from '../../notes/note.entity'
 import { makeRequest } from '../utils/make-request';
-import { CreateNoteDto } from 'src/notes/dto/create-note.dto';
+import { CreateNoteDto } from '../../notes/dto/create-note.dto';
 
 describe('Notes Integration', () => {
   let app: NestExpressApplication;
@@ -31,11 +31,11 @@ describe('Notes Integration', () => {
 
   describe('GET /notes', () => {
     describe('200', () => {
-        it('should create dog and return id', async () => {
-            await connection
-            .getRepository(Note)
-            .save([{ value: 'note - 1' }, { value: 'note - 2' }, { value: 'note - 3' }]);
-
+        it('should create note and return id', async () => {
+            await connection.getRepository(Note).save({ value: 'note - 1' });
+            await connection.getRepository(Note).save({ value: 'note - 2' });
+            await connection.getRepository(Note).save({ value: 'note - 3' });
+       
             const response = await makeRequest(app).get('/notes');
 
             expect(response.status).toBe(HttpStatus.OK);
@@ -56,7 +56,8 @@ describe('Notes Integration', () => {
           expect(response.status).toBe(HttpStatus.OK);
           expect(response.body).toEqual({
             id: note.id,
-            value: note.value
+            value: note.value,
+            labels: [],
           })
       });
     });
@@ -94,6 +95,7 @@ describe('Notes Integration', () => {
             it('should create note and save it to db', async () => {
                 const given: CreateNoteDto = {
                     value: 'hello world...',
+                    labelIds: [],
                 };
 
                 const response = await makeRequest(app).post('/notes').send(given);
