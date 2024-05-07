@@ -10,8 +10,6 @@ $ yarn
 
 ## Running the app
 
-- copy the contents of the `.env.example` file and put in into a `.env` file in the root directory
-
 ```bash
 # stop your local postgresql service (for example if you installed via homebrew)
 $ brew services list 
@@ -27,7 +25,7 @@ $ yarn run start:dev
 - The api will be running on http://localhost:3000
 - pgAdmin running in docker can be accessed on http://localhost:8888 
   - pgAdmin in docker: username: `postgres@solace.com` and password: `postgres` 
-  - to view the database add a server with a hostname/address (under the connection tab) of `localhost` with same credentials `.env.example` file
+  - to view the database add a server with a hostname/address (under the connection tab) of `localhost` with same credentials `.env` files
   - alternatively if you already have pgAdmin running on your local machine can connect via the same `localhost` hostname/address
 
 ## Test
