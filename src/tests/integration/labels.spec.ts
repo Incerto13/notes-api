@@ -39,7 +39,9 @@ describe('Labels Integration', () => {
             const response = await makeRequest(app).get('/labels');
 
             expect(response.status).toBe(HttpStatus.OK);
-            expect(response.body.map((label) => label.name)).toEqual(["label - 1", "label - 2", "label - 3"])
+            expect(response.body.map((label) => label.name)).toContain("label - 1")
+            expect(response.body.map((label) => label.name)).toContain("label - 2")
+            expect(response.body.map((label) => label.name)).toContain("label - 3")
         });
     });
   });

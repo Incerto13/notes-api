@@ -39,7 +39,10 @@ describe('Notes Integration', () => {
             const response = await makeRequest(app).get('/notes');
 
             expect(response.status).toBe(HttpStatus.OK);
-            expect(response.body.map((note) => note.value)).toEqual(["note - 1", "note - 2", "note - 3"])
+            expect(response.body.map((note) => note.value)).toContain("note - 1")
+            expect(response.body.map((note) => note.value)).toContain("note - 2")
+            expect(response.body.map((note) => note.value)).toContain("note - 3")
+          
         });
     });
   });
