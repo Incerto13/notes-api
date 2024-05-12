@@ -15,30 +15,9 @@ services:
     image: dpage/pgadmin4
     container_name: pgadmin4
     restart: always
-    depends_on: 
-      - db
     ports:
       - 8888:80
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD} 
-
-  api:
-    container_name: api
-    build:
-      context: .
-      dockerfile: Dockerfile
-    environment: 
-      ENV: ${ENV}
-      DB_HOST: ${DB_HOST}
-      DB_PORT: ${DB_PORT}  
-      DB_USERNAME: ${DB_USERNAME}
-      DB_PASSWORD: ${DB_PASSWORD} 
-      DB_DATABASE: ${DB_DATABASE}
-    restart: always
-    depends_on:
-      - db
-    ports:
-      - 3000:3000
-    image: incerto13/notes-api:latest
 

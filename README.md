@@ -16,7 +16,7 @@ $ brew services list
 $ brew services stop postgresql@14 
 
 # start the dev database in docker
-$ make up-db
+$ make up-dev-db
 
 # development
 $ yarn run start:dev
@@ -34,7 +34,7 @@ $ yarn run start:dev
 $ yarn run test:unit
 
 # integration tests
-$ make down-db # first stop and remove dev container and volumes
+$ make down-dev-db # first stop and remove dev container and volumes
 $ make up-test-db # stand up integration-test db
 $ yarn run test:int
 $ make down-test-db # before going back to development must remove test-db and volumes

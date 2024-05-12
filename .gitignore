@@ -35,5 +35,6 @@ lerna-debug.log*
 
 # Env Vars
 .env* 
+!.env.example
 !.env.dev
 !.env.test
