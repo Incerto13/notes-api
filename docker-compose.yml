@@ -40,8 +40,8 @@ services:
       - db
     ports:
       - 3000:3000
-    networks:
-      - web
+    # networks:
+    #   - web
 
     image: incerto13/notes-api:latest
 
@@ -57,6 +57,6 @@ services:
       - api
     networks:
       - web
-networks:
-  web:
-    driver: bridge
+# networks:
+#   web:
+#     driver: bridge
