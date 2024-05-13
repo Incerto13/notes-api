@@ -35,6 +35,7 @@ jobs:
           script: |
             cd notes-api
             echo "$PROD_ENVS" > .env.prod
+            make down-prod
             git pull origin main
             sudo docker compose pull
             make up-prod

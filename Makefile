@@ -1,6 +1,6 @@
 # For running db and api in container in prod
 up-prod:
-	sudo docker compose -f docker-compose.yml --env-file .env.prod up --build -d
+	sudo docker compose -f docker-compose.yml --env-file .env.prod up -d
 	
 down-prod:
 	sudo docker stop notes-db pgadmin4 api
