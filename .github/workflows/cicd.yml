@@ -1,0 +1,42 @@
+name: Deploy to Prod Env
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+
+env: 
+  ENV: prod
+  DOCKER_USER: ${{ secrets.DOCKER_USERNAME }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+  PROD_ENVS: ${{ secrets.PROD_ENVS }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Docker Login
+        run:
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+      - name: Generate .env file
+        run: echo "$PROD_ENVS" > .env.prod
+      - name: Build and Push Image to Docker Hub
+        run: |
+            docker-compose -f docker-compose.yml --env-file .env.prod --build
+            docker push incerto13/techneip-api:staging-latest
+      - name: ssh into EC2 and run latest image
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.PROD_EC2_HOSTNAME  }}
+          username: ${{ secrets.EC2_USERNAME  }}
+          key: ${{ secrets.PROD_AWS_PRIVATE_KEY  }}
+          port: 22
+          envs: PROD_ENVS
+          script: |
+            cd notes-api
+            echo "$PROD_ENVS" > .env.prod
+            git pull origin main
+            sudo docker compose pull
+            make up-prod
+            docker system prune -a -f
