@@ -18,13 +18,13 @@ jobs:
       - name: Docker Login
         run:
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-      - name: Generate .env.prod file
-        run: echo "$PROD_ENVS" > .env.prod
-      - name: Build and Push Image to Docker Hub
+      - name: Generate .env file
+        run: echo "$PROD_ENVS" > .env
+      - name: Build and Push Updated Image to Docker Hub
         run: |
-            docker-compose -f docker-compose.yml --env-file .env.prod --build
+            docker-compose -f docker-compose.yml build
             docker push incerto13/notes-api:latest
-      - name: ssh into EC2 and run latest image
+      - name: SSH Into EC2 and Run Latest Image
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.PROD_EC2_HOSTNAME  }}
