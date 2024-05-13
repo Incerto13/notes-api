@@ -22,7 +22,7 @@ jobs:
         run: echo "$PROD_ENVS" > .env
       - name: Build and Push Updated Image to Docker Hub
         run: |
-            docker-compose -f docker-compose.yml build
+            docker compose -f docker-compose.yml build
             docker push incerto13/notes-api:latest
       - name: SSH Into EC2 and Run Latest Image
         uses: appleboy/ssh-action@v1.0.3
@@ -38,4 +38,4 @@ jobs:
             git pull origin main
             sudo docker compose pull
             make up-prod
-            sudo docker system prune -a -f
+            sudo docker system prune -a
