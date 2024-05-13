@@ -38,3 +38,6 @@ lerna-debug.log*
 !.env.example
 !.env.dev
 !.env.test
+
+# Nginx configuration file
+nginx.conf

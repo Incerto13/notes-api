@@ -9,6 +9,7 @@ env:
   DOCKER_USER: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
   PROD_ENVS: ${{ secrets.PROD_ENVS }}
+  NGINX_CONF: ${{ secrets.NGINX_CONF }}
 
 jobs:
   build:
@@ -35,6 +36,7 @@ jobs:
           script: |
             cd notes-api
             echo "$PROD_ENVS" > .env.prod
+            echo "$NGINX_CONF" > nginx.conf
             make down-prod
             git pull origin main
             sudo docker compose pull
