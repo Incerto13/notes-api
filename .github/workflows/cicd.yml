@@ -38,4 +38,4 @@ jobs:
             git pull origin main
             sudo docker compose pull
             make up-prod
-            docker system prune -a -f
+            sudo docker system prune -a -f
