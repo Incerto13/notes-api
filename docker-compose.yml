@@ -55,8 +55,8 @@ services:
       - /etc/letsencrypt:/etc/letsencrypt
     depends_on:
       - api
-    networks:
-      - web
+    # networks:
+    #   - web
 # networks:
 #   web:
 #     driver: bridge
