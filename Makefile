@@ -1,10 +1,10 @@
-# For running db and api in container in prod
+# For running db and api, and client-app in container in prod
 up-prod:
-	sudo docker compose -f docker-compose.yml --env-file .env.prod up -d
+	sudo docker compose -f docker-compose.yml --env-file .env.prod up
 	
 down-prod:
-	sudo docker stop notes-db pgadmin4 api
-	sudo docker rm --volumes notes-db pgadmin4 api
+	sudo docker stop notes-db pgadmin4 api app
+	sudo docker rm --volumes notes-db pgadmin4 api app
 
 
 # For running db in container (while running api on local machine)

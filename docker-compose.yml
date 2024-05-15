@@ -40,23 +40,16 @@ services:
       - db
     ports:
       - 3000:3000
-    # networks:
-    #   - web
-
     image: incerto13/notes-api:latest
 
-  nginx:
-    image: nginx
-    ports:
-      - 80:80
-      - 443:443
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-      - /etc/letsencrypt:/etc/letsencrypt
+  app:
+    image: incerto13/notes-client:latest
+    container_name: app
+    restart: always
     depends_on:
       - api
-    # networks:
-    #   - web
-# networks:
-#   web:
-#     driver: bridge
+    ports:
+      - 8080:80
+
+
+
