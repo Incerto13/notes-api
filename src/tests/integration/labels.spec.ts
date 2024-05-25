@@ -117,7 +117,7 @@ describe('Labels Integration', () => {
         });
     });
 
-  describe('PATCH /labels/:id', () => {
+  describe('PATCH api/labels/:id', () => {
       describe('200', () => {
           it('should create label and return id', async () => {
             const orig = await connection
