@@ -31,6 +31,7 @@ async function bootstrap() {
     },
     allowedHeaders: 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Observe',
     methods: "GET,PATCH,POST,DELETE,UPDATE,OPTIONS",
+    credentials: true,
   });
   app.useGlobalPipes(new ValidationPipe());
   const port = 3000;
