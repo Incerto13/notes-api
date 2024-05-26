@@ -7,7 +7,14 @@ async function bootstrap() {
   const logger = new Logger();
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
-  app.enableCors();
+  app.enableCors({
+    origin: [
+      'http://localhost:3000',
+      'http://solace.incertotech.com',
+    ],
+    methods: ["GET", "POST", "DELETE", "PATCH"],
+    credentials: true,
+  });
   app.useGlobalPipes(new ValidationPipe());
   const port = 3000;
   await app.listen(port);
