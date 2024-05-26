@@ -7,9 +7,11 @@ async function bootstrap() {
   const logger = new Logger();
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
-  var whitelist = ['http://localhost:8080', 'http://54.242.227.79:8080', 'http://solace.incertotech.com:8080'];
+  var whitelist = ['http://localhost:8080', 'http://solace.incertotech.com:8080'];
   app.enableCors({
     origin: function (origin, callback) {
+      // if origin is undefined, then the call is coming from same origin and wasn't 
+      // picked up by cors at all (i.e. under same dns name as api thus must be in prod)
       if (whitelist.indexOf(origin) !== -1 || !origin) {
         console.log("allowed cors for:", origin)
         callback(null, true)
