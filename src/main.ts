@@ -10,6 +10,7 @@ async function bootstrap() {
   app.enableCors({
     origin: [
       'http://localhost:3000',
+      'http://54.242.227.79:3000',
       'http://solace.incertotech.com',
     ],
     methods: ["GET", "POST", "DELETE", "PATCH"],
