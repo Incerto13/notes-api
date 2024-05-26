@@ -9,9 +9,10 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
   app.enableCors({
     origin: [
-      'http://localhost:3000',
-      'http://54.242.227.79:3000',
-      'http://solace.incertotech.com',
+      'http://localhost:3000/api',
+      'http://54.242.227.79:3000/api',
+      'http://solace.incertotech.com/api',
+      '*',
     ],
     methods: ["GET", "POST", "DELETE", "PATCH"],
     credentials: true,
