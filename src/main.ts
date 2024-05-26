@@ -18,7 +18,7 @@ async function bootstrap() {
   //   credentials: true,
   // });
 
-  var whitelist = ['http://localhost:3000', 'http://54.242.227.79:3000', 'http://solace.incertotech.com/api'];
+  var whitelist = ['http://localhost:3000', 'http://54.242.227.79:3000', 'http://solace.incertotech.com','*'];
   app.enableCors({
     origin: function (origin, callback) {
       if (whitelist.indexOf(origin) !== -1) {
